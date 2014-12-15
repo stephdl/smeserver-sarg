@@ -5,8 +5,8 @@
 Summary: SME server Sarg
 %define name smeserver-sarg
 Name: %{name}
-%define version 2.2.1
-%define release 6
+%define version 2.3.1
+%define release 1
 Version: %{version}
 Release: %{release}%{?dist}
 License: Freely distributable
@@ -15,8 +15,8 @@ Source: %{name}-%{version}.tar.gz
 BuildRoot: /var/tmp/e-smith-buildroot
 BuildRequires:  e-smith-devtools
 BuildArchitectures: noarch
-Requires: smeserver-release >= 7
-Requires: sarg >= 2.2
+Requires: smeserver-release >= 9
+Requires: sarg >= 2.3
 AutoReqProv: no
 
 %changelog
@@ -75,11 +75,11 @@ Sarg templates for SME Server release 7
 
 %build
 perl createlinks
-mkdir -p          root/etc/e-smith/db/configuration/defaults/sarg
-echo "service"  > root/etc/e-smith/db/configuration/defaults/sarg/type
-echo "squid"    > root/etc/e-smith/db/configuration/defaults/sarg/logfile
-echo "English"  > root/etc/e-smith/db/configuration/defaults/sarg/language
-echo "bytes"    > root/etc/e-smith/db/configuration/defaults/sarg/values
+#mkdir -p          root/etc/e-smith/db/configuration/defaults/sarg
+#echo "service"  > root/etc/e-smith/db/configuration/defaults/sarg/type
+#echo "squid"    > root/etc/e-smith/db/configuration/defaults/sarg/logfile
+#echo "English"  > root/etc/e-smith/db/configuration/defaults/sarg/language
+#echo "bytes"    > root/etc/e-smith/db/configuration/defaults/sarg/values
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -97,16 +97,16 @@ rm -rf $RPM_BUILD_ROOT
 %preun
 %post
 #new installs
-if [ $1 = 1 ] ; then
-  /sbin/e-smith/expand-template /etc/httpd/conf/httpd.conf
-  /etc/rc.d/init.d/httpd-e-smith sigusr1
-  /etc/e-smith/events/actions/navigation-conf > /dev/null 2>&1
-fi
+#if [ $1 = 1 ] ; then
+#  /sbin/e-smith/expand-template /etc/httpd/conf/httpd.conf
+#  /etc/rc.d/init.d/httpd-e-smith sigusr1
+#  /etc/e-smith/events/actions/navigation-conf > /dev/null 2>&1
+#fi
 
-/sbin/e-smith/expand-template /etc/sarg/sarg.conf
-/sbin/e-smith/expand-template /etc/cron.daily/sarg
-/sbin/e-smith/expand-template /etc/cron.weekly/sarg
-/sbin/e-smith/expand-template /etc/cron.monthly/sarg
+#/sbin/e-smith/expand-template /etc/sarg/sarg.conf
+#/sbin/e-smith/expand-template /etc/cron.daily/sarg
+#/sbin/e-smith/expand-template /etc/cron.weekly/sarg
+#/sbin/e-smith/expand-template /etc/cron.monthly/sarg
 
 
 #/etc/e-smith/events/actions/initialize-default-databases
@@ -114,14 +114,15 @@ fi
 echo ''
 echo 'optional settings for sarg, first option is default'
 echo ''
-echo 'config setprop sarg language [English|Dutch|French|German|Spanish|Italian|...]'
+#echo 'config setprop sarg language [English|Dutch|French|German|Spanish|Italian|...]'
 echo 'config setprop sarg values [bytes|abbreviation]'
 echo 'config setprop sarg logfile [squid|dansguardian]'
 echo 'config setprop sarg lastlog [0|365|num.of.days.to.keep.logs]'
 echo ''
-echo 'expand-templates shortcut with /usr/bin/sarglog'
+echo 'expand-templates shortcut with /usr/bin/sarglog or signal-event sarg-update'
 echo ''
-
+echo "useage"
+echo "sarglog (squid|dansguardian)"
 
 %postun
 #uninstalls

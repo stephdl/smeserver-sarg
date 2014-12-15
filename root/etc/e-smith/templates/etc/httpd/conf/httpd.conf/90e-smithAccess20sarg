@@ -41,6 +41,7 @@ $OUT .= <<HERE;
     deny from all
     allow from $localAccess $externalSSLAccess
     AuthName "SME Server Manager"
+    AuthBasicProvider external
     AuthType Basic
     AuthExternal pwauth
     require user admin $sargusers
