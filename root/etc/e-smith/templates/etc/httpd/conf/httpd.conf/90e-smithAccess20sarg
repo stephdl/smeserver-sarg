@@ -1,0 +1,53 @@
+{
+ my $externalSSLAccess = '';
+ my $validFrom = db_get_prop($confref, "httpd-admin", "ValidFrom") || 'none';
+
+ $validFrom =~ s/,/ /g;
+ $validFrom =~ s:/255.255.255.255::g;
+
+ unless ($validFrom eq 'none')
+ {
+  $externalSSLAccess = $validFrom;
+ }
+
+ use esmith::AccountsDB;
+ my $adb = esmith::AccountsDB->open_ro();
+ my $sargusers = "";
+
+ foreach my $user ($adb->users)
+ {
+   my %properties = $user->props;
+   my $key = $user->key;
+	
+   if ($properties{'AdminPanels'})
+   {
+      if ($properties{'AdminPanels'} =~ /sarg/)
+      { 
+	 $sargusers = "$sargusers $key";
+     }
+   }
+ }
+
+$OUT .= <<HERE;
+    #-----------------------------------------------------------------------------
+    # SARG generated squid access log reports web repository
+    #-----------------------------------------------------------------------------
+    
+    Alias /squid /var/www/sarg
+    <Directory /var/www/sarg>
+    AllowOverride None
+    Options +Indexes
+    order deny,allow
+    deny from all
+    allow from $localAccess $externalSSLAccess
+    AuthName "SME Server Manager"
+    AuthType Basic
+    AuthExternal pwauth
+    require user admin $sargusers
+    </Directory>
+
+    #-----------------------------------------------------------------------------
+    # End of SARG generated squid access log reports web repository
+    #-----------------------------------------------------------------------------
+HERE
+}

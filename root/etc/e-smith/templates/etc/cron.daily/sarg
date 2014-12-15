@@ -1,0 +1,19 @@
+{
+     my $logfile =  $sarg{'logfile'} || 'squid';
+
+     $OUT .= "#!/bin/bash\n";
+     $OUT .= "\n";
+     $OUT .= "LOG_FILES=\n";
+     $OUT .= "if [ -s /var/log/$logfile/access.log.1.gz ]; then\n";
+     $OUT .= "	LOG_FILES=\"\$LOG_FILES -l /var/log/$logfile/access.log.1.gz\"\n";
+     $OUT .= "fi\n";
+     $OUT .= "if [ -s /var/log/$logfile/access.log ]; then\n";
+     $OUT .= "	LOG_FILES=\"\$LOG_FILES -l /var/log/$logfile/access.log\"\n";
+     $OUT .= "fi\n";
+     $OUT .= "\n";
+     $OUT .= "YESTERDAY=\"\$(date --date \'1 days ago\' +%d/%m/%Y)\"\n";
+     $OUT .= "\n";
+     $OUT .= "/usr/bin/sarg \$LOG_FILES -o /var/www/sarg/daily -d \$YESTERDAY > /dev/null 2>&1 \n";
+     $OUT .= "\n";
+     $OUT .= "exit 0\n";
+}

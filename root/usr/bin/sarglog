@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# select logfile for sarg
+# support@dungog.net 2006
+
+if [ "$1" = "squid" ] ; then
+ /sbin/e-smith/db configuration setprop sarg logfile squid
+ /sbin/e-smith/expand-template /etc/sarg/sarg.conf
+ /sbin/e-smith/expand-template /etc/cron.daily/sarg
+ /sbin/e-smith/expand-template /etc/cron.weekly/sarg
+ /sbin/e-smith/expand-template /etc/cron.monthly/sarg
+ echo "sarg to use squid logs"
+ exit 1
+fi
+
+if [ "$1" = "dansguardian" ] ; then
+ /sbin/e-smith/db configuration setprop sarg logfile dansguardian
+ /sbin/e-smith/db configuration setprop sarg values abbreviation
+ /sbin/e-smith/expand-template /etc/sarg/sarg.conf
+ /sbin/e-smith/expand-template /etc/cron.daily/sarg
+ /sbin/e-smith/expand-template /etc/cron.weekly/sarg
+ /sbin/e-smith/expand-template /etc/cron.monthly/sarg
+ echo "sarg to use dansguardian logs"
+ exit 1
+fi
+
+echo "useage"
+echo "sarglog (squid|dansguardian)"
+exit 1
+
