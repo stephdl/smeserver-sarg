@@ -20,6 +20,9 @@ Requires: sarg >= 2.3
 AutoReqProv: no
 
 %changelog
+* Tue Dec 16 2014 stephane de Labrusse <stephdl@de-labrusse.fr> 2.3.1-1.sme
+-first release to sme9
+
 * Fri Sep 18 2009 Stephen Noble <support@dungog.net> 2.2.1-6.sme 
 - allow valid userpanel users access [SME 2931]
 
@@ -103,9 +106,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %preun
 %post
+if [ $1 = 1 ] ; then
 /bin/ln -s /etc/sarg/fonts/ /usr/share/sarg/
 /bin/ln -s /etc/sarg/languages/ /usr/share/sarg/
 /bin/ln -s /etc/sarg/images/ /usr/share/sarg/
+fi
 #new installs
 #if [ $1 = 1 ] ; then
 #  /sbin/e-smith/expand-template /etc/httpd/conf/httpd.conf
@@ -129,10 +134,12 @@ echo 'config setprop sarg values [bytes|abbreviation]'
 echo 'config setprop sarg logfile [squid|dansguardian]'
 echo 'config setprop sarg lastlog [0|365|num.of.days.to.keep.logs]'
 echo ''
-echo 'expand-templates shortcut with /usr/bin/sarglog or signal-event sarg-update'
-echo ''
-echo "useage"
+echo 'expand-templates shortcut with /usr/bin/sarglog'
 echo "sarglog (squid|dansguardian)"
+echo ''
+echo 'or signal-event sarg-update'
+echo 'config setprop sarg logfile [squid|dansguardian]'
+echo ''
 
 %postun
 #uninstalls
