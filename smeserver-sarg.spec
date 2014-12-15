@@ -75,10 +75,10 @@ Sarg templates for SME Server release 7
 
 %build
 perl createlinks
-%{__mkdir_p} root/usr/share/sarg
-%{__mkdir_p} root/etc/sarg/images
-%{__mkdir_p} root/etc/sarg/languages
-%{__mkdir_p} root/etc/sarg/fonts
+%{__mkdir_p} root/usr/share/sarg/
+%{__mkdir_p} root/etc/sarg/images/
+%{__mkdir_p} root/etc/sarg/languages/
+%{__mkdir_p} root/etc/sarg/fonts/
 
 
 
