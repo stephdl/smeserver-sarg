@@ -76,9 +76,9 @@ Sarg templates for SME Server release 7
 %build
 perl createlinks
 %{__mkdir_p} root/usr/share/sarg/
-%{__mkdir_p} root/etc/sarg/images/
-%{__mkdir_p} root/etc/sarg/languages/
-%{__mkdir_p} root/etc/sarg/fonts/
+#%{__mkdir_p} root/etc/sarg/images/
+#%{__mkdir_p} root/etc/sarg/languages/
+#%{__mkdir_p} root/etc/sarg/fonts/
 
 
 
@@ -103,6 +103,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %preun
 %post
+/bin/ln -s /etc/sarg/fonts/ /usr/share/sarg/
+/bin/ln -s /etc/sarg/languages/ /usr/share/sarg/
+/bin/ln -s /etc/sarg/images/ /usr/share/sarg/
 #new installs
 #if [ $1 = 1 ] ; then
 #  /sbin/e-smith/expand-template /etc/httpd/conf/httpd.conf

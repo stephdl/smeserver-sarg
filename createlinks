@@ -27,6 +27,6 @@ for  my $event (qw(
     safe_symlink("sigusr1", "root/etc/e-smith/events/$event/services2adjust/httpd-e-smith"); 
 }
 
-safe_symlink("root/etc/sarg/fonts/","root/usr/share/sarg/");
-safe_symlink("root/etc/sarg/languages/","root/usr/share/sarg/");
-safe_symlink("root/etc/sarg/images/","root/usr/share/sarg/");
+#safe_symlink("/etc/sarg/fonts/","root/usr/share/sarg/");
+#safe_symlink("/etc/sarg/languages/","root/usr/share/sarg/");
+#safe_symlink("/etc/sarg/images/","root/usr/share/sarg/");
