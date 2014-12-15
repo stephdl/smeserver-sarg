@@ -75,6 +75,7 @@ Sarg templates for SME Server release 7
 
 %build
 perl createlinks
+%{__mkdir_p} root/usr/share/sarg
 #mkdir -p          root/etc/e-smith/db/configuration/defaults/sarg
 #echo "service"  > root/etc/e-smith/db/configuration/defaults/sarg/type
 #echo "squid"    > root/etc/e-smith/db/configuration/defaults/sarg/logfile
