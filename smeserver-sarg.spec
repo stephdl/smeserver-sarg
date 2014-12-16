@@ -16,12 +16,13 @@ BuildRoot: /var/tmp/e-smith-buildroot
 BuildRequires:  e-smith-devtools
 BuildArchitectures: noarch
 Requires: smeserver-release >= 9
-Requires: sarg >= 2.3
+Requires: sarg >= 2.3.1
 AutoReqProv: no
 
 %changelog
 * Tue Dec 16 2014 stephane de Labrusse <stephdl@de-labrusse.fr> 2.3.1-1.sme
 -first release to sme9
+-thanks to  Philippe Desrosiers <pdesrosier@aei.ca> for this work
 
 * Fri Sep 18 2009 Stephen Noble <support@dungog.net> 2.2.1-6.sme 
 - allow valid userpanel users access [SME 2931]
@@ -137,8 +138,9 @@ echo ''
 echo 'expand-templates shortcut with /usr/bin/sarglog'
 echo "sarglog (squid|dansguardian)"
 echo ''
-echo 'or signal-event sarg-update'
+echo 'or'
 echo 'config setprop sarg logfile [squid|dansguardian]'
+echo 'signal-event sarg-update'
 echo ''
 
 %postun
